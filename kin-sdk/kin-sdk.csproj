@@ -5,4 +5,8 @@
     <RootNamespace>kin_sdk</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="kin-base" Version="0.0.2" />
+  </ItemGroup>
+
 </Project>
