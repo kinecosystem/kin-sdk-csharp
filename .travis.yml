@@ -1,0 +1,22 @@
+language: csharp
+solution: kin-sdk-csharp.sln
+
+mono: none
+
+matrix:
+  include:
+    - os: linux
+      dist: xenial
+    - os: osx
+    # - os: windows , very expiremental, does not work yet
+
+dotnet: 2.2.401
+
+script:
+  - make test
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash) -f "./kin-base-test/coverage.opencover.xml"
+
+notifications:
+  email: false
