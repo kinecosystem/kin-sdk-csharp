@@ -5,5 +5,8 @@
     <TargetFramework>netcoreapp2.2</TargetFramework>
     <RootNamespace>kin_sdk_tests</RootNamespace>
   </PropertyGroup>
+    <ItemGroup>
+    <ProjectReference Include="..\kin-sdk\kin-sdk.csproj" />
+  </ItemGroup>
 
 </Project>
