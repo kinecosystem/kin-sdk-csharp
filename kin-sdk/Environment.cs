@@ -20,12 +20,12 @@ namespace kin_sdk
             if (!(Uri.TryCreate(networkUrl, UriKind.Absolute, out uriResult) &&
                (uriResult.Scheme == Uri.UriSchemeHttp || uriResult.Scheme == Uri.UriSchemeHttps)))
             {
-                throw new ArgumentException($"networkUrl {networkUrl} is not a valid URL");
+                throw new ArgumentException($"networkUrl {networkUrl ?? ""} is not a valid URL");
             }
 
             if (String.IsNullOrEmpty(networkPassphrase))
             {
-                throw new ArgumentException($"networkPassphrase {networkPassphrase} is not a valid passphrase");
+                throw new ArgumentException($"networkPassphrase cannot be null or empty");
             }
 
             this.networkUrl = networkUrl;
@@ -39,7 +39,7 @@ namespace kin_sdk
 
         public bool IsMainNet()
         {
-            return Production.networkUrl == this.networkUrl && Production.networkPassphrase == this.networkPassphrase;
+            return Production.networkUrl == this.networkUrl.Replace("http://", "https://") && Production.networkPassphrase == this.networkPassphrase;
         }
 
         public Network GetNetwork()

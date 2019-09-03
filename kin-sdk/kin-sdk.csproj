@@ -9,4 +9,10 @@
     <PackageReference Include="kin-base" Version="0.0.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
+      <_Parameter1>kin-sdk-tests</_Parameter1>
+    </AssemblyAttribute>
+  </ItemGroup>
+
 </Project>

@@ -24,14 +24,14 @@ namespace kin_sdk
         /// </summary>
         /// <param name="environment">The environment to connect to</param>
         /// <param name="keyStore">An implementation of the IKeyStoreProvider interface</param>
-        /// <param name="appId">A 3/4 charcter string which represent the application id to add to each transaction</param>
-        public KinClient(Environment environment, IKeyStoreProvider keyStore, string appId=DefualtAppId)
+        /// <param name="appId">A 3/4 charcter string (letters/digits) which represent the application id to add to each transaction</param>
+        public KinClient(Environment environment, IKeyStoreProvider keyStore, string appId = DefualtAppId)
         {
-            this.environment = environment ?? throw new ArgumentException("Environemnt can't be null");
+            this.environment = environment ?? throw new ArgumentNullException("Environemnt");
+            this.keyStore = keyStore ?? throw new ArgumentNullException("Keystore");
             ValidateAppId(appId);
             this.appId = appId;
             this.server = InitServer();
-            this.keyStore = keyStore;
             this.accountInfoRetriver = new AccountInfoRetriver(this.server);
             this.generalBlockchainInfoRetriever = new GeneralBlockchainInfoRetriever(this.server);
             this.transactionSender = new TransactionSender(this.server, this.appId);
@@ -41,7 +41,7 @@ namespace kin_sdk
         /// Generate a new Keypair and send it the keystore provider for storage
         /// </summary>
         /// <param name="extras">A dictonary of extra attributes to pass to the keystore</param>
-        /// <returns></returns>
+        /// <returns>The KeyPair that was generated and sent to storage</returns>
         public async Task<KeyPair> AddAccount(Dictionary<string, object> extras = null)
         {
             KeyPair keyPair = KeyPair.Random();
@@ -49,9 +49,23 @@ namespace kin_sdk
             return keyPair;
         }
 
+        /// <summary>
+        /// Get a KinAccount instance using the supplied keypair
+        /// </summary>
+        /// <param name="keyPair">KeyPair to use for the account</param>
+        /// <returns>A KinAccount that can interface with this client's environment</returns>
         public KinAccount GetAccount(KeyPair keyPair)
         {
             return new KinAccount(keyPair, this);
+        }
+
+        /// <summary>
+        /// Get the minimum acceptable fee for a transaction on the blockchain
+        /// </summary>
+        /// <returns>The minimum fee</returns>
+        public async Task<UInt32> GetMinimumFee()
+        {
+            return await this.generalBlockchainInfoRetriever.GetMinimumFee();
         }
 
         private Server InitServer()
@@ -64,11 +78,11 @@ namespace kin_sdk
 
         private void ValidateAppId(string appId)
         {
-            if (!String.IsNullOrEmpty(appId))
+            if (appId != "")  // App id can also be an empty string.
             {
                 if (!Regex.IsMatch(appId, "[a-zA-Z0-9]{3,4}"))
                 {
-                    throw new ArgumentException($"appId {appId} is invalid, an appId can only contain letters and digits, and be 3 or 4 characters long");
+                    throw new ArgumentException($"appId {appId ?? ""} is invalid, an appId can only contain letters and digits, and be 3 or 4 characters long");
                 }
             }
         }
