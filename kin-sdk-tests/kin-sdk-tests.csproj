@@ -18,6 +18,11 @@
     <ItemGroup>
       <ProjectReference Include="..\kin-sdk\kin-sdk.csproj" />
     </ItemGroup>
+    <ItemGroup>
+    <None Update="testdata\**\*.*">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    </ItemGroup>
 
 
 </Project>
