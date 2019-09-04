@@ -107,5 +107,13 @@ namespace kin_sdk_tests
             UInt32 minimumFee = await kinClient.GetMinimumFee();
             Assert.AreEqual(minimumFee, (UInt32) 100);   
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void TestNullKeyPair()
+        {
+            KinClient kinClient = new KinClient(kin_sdk.Environment.Test, keystoreProvider);
+            kinClient.GetAccount(null);
+        }
     }
 }

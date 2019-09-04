@@ -57,7 +57,7 @@ namespace kin_sdk
         /// <returns>A KinAccount that can interface with this client's environment</returns>
         public KinAccount GetAccount(KeyPair keyPair)
         {
-            return new KinAccount(keyPair, this);
+            return new KinAccount(keyPair ?? throw new ArgumentNullException("keyPair"), this);
         }
 
         /// <summary>
