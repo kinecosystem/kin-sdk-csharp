@@ -130,9 +130,18 @@ namespace kin_sdk_tests
 
         public void CleanStorage()
         {
-            // Used at the start and end of each test case
+            // Used at the start and end of each test
             File.Create(FilePath).Close();
             UpdateLocalStorage(new List<UserAccount>());
+        }
+
+        public void RemoveStorage()
+        {
+            // Used at the end of the test case
+            if (File.Exists(FilePath))
+            {
+                File.Delete(FilePath);
+            }
         }
     }
 }
