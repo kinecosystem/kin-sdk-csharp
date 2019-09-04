@@ -25,13 +25,14 @@ namespace kin_sdk
         /// <param name="environment">The environment to connect to</param>
         /// <param name="keyStore">An implementation of the IKeyStoreProvider interface</param>
         /// <param name="appId">A 3/4 charcter string (letters/digits) which represent the application id to add to each transaction</param>
-        public KinClient(Environment environment, IKeyStoreProvider keyStore, string appId = DefualtAppId)
+        /// <param name="httpClient">Optional httpClient to use to communicate with the blockchain</param>
+        public KinClient(Environment environment, IKeyStoreProvider keyStore, string appId = DefualtAppId, HttpClient httpClient=null)
         {
             this.environment = environment ?? throw new ArgumentNullException("Environemnt");
             this.keyStore = keyStore ?? throw new ArgumentNullException("Keystore");
             ValidateAppId(appId);
             this.appId = appId;
-            this.server = InitServer();
+            this.server = InitServer(httpClient);
             this.accountInfoRetriver = new AccountInfoRetriver(this.server);
             this.generalBlockchainInfoRetriever = new GeneralBlockchainInfoRetriever(this.server);
             this.transactionSender = new TransactionSender(this.server, this.appId);
@@ -68,12 +69,15 @@ namespace kin_sdk
             return await this.generalBlockchainInfoRetriever.GetMinimumFee();
         }
 
-        private Server InitServer()
+        private Server InitServer(HttpClient httpClient)
         {
             Network.Use(this.environment.GetNetwork());
-            HttpClient httpClient = Server.CreateHttpClient();
-            httpClient.Timeout = TransactionTimeout;
-            return new Server(this.environment.networkUrl);
+            if (httpClient == null)
+            {
+                httpClient = Server.CreateHttpClient();
+                httpClient.Timeout = TransactionTimeout;
+            }
+            return new Server(this.environment.networkUrl, httpClient);
         }
 
         private void ValidateAppId(string appId)
