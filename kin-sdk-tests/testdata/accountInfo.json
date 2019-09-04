@@ -1,0 +1,68 @@
+{
+    "_links": {
+      "self": {
+        "href": "http://horizon-testnet.kininfrastructure.com/accounts/GAT36NRQTWB2TYWD3UM32HU7OS7DCYJIYGASXC4BXUGCADXJLO52WUEC"
+      },
+      "transactions": {
+        "href": "http://horizon-testnet.kininfrastructure.com/accounts/GAT36NRQTWB2TYWD3UM32HU7OS7DCYJIYGASXC4BXUGCADXJLO52WUEC/transactions{?cursor,limit,order}",
+        "templated": true
+      },
+      "operations": {
+        "href": "http://horizon-testnet.kininfrastructure.com/accounts/GAT36NRQTWB2TYWD3UM32HU7OS7DCYJIYGASXC4BXUGCADXJLO52WUEC/operations{?cursor,limit,order}",
+        "templated": true
+      },
+      "payments": {
+        "href": "http://horizon-testnet.kininfrastructure.com/accounts/GAT36NRQTWB2TYWD3UM32HU7OS7DCYJIYGASXC4BXUGCADXJLO52WUEC/payments{?cursor,limit,order}",
+        "templated": true
+      },
+      "effects": {
+        "href": "http://horizon-testnet.kininfrastructure.com/accounts/GAT36NRQTWB2TYWD3UM32HU7OS7DCYJIYGASXC4BXUGCADXJLO52WUEC/effects{?cursor,limit,order}",
+        "templated": true
+      },
+      "offers": {
+        "href": "http://horizon-testnet.kininfrastructure.com/accounts/GAT36NRQTWB2TYWD3UM32HU7OS7DCYJIYGASXC4BXUGCADXJLO52WUEC/offers{?cursor,limit,order}",
+        "templated": true
+      },
+      "trades": {
+        "href": "http://horizon-testnet.kininfrastructure.com/accounts/GAT36NRQTWB2TYWD3UM32HU7OS7DCYJIYGASXC4BXUGCADXJLO52WUEC/trades{?cursor,limit,order}",
+        "templated": true
+      },
+      "data": {
+        "href": "http://horizon-testnet.kininfrastructure.com/accounts/GAT36NRQTWB2TYWD3UM32HU7OS7DCYJIYGASXC4BXUGCADXJLO52WUEC/data/{key}",
+        "templated": true
+      }
+    },
+    "id": "GAT36NRQTWB2TYWD3UM32HU7OS7DCYJIYGASXC4BXUGCADXJLO52WUEC",
+    "paging_token": "",
+    "account_id": "GAT36NRQTWB2TYWD3UM32HU7OS7DCYJIYGASXC4BXUGCADXJLO52WUEC",
+    "sequence": "9242915649880064",
+    "subentry_count": 0,
+    "thresholds": {
+      "low_threshold": 0,
+      "med_threshold": 0,
+      "high_threshold": 0
+    },
+    "flags": {
+      "auth_required": false,
+      "auth_revocable": false,
+      "auth_immutable": false
+    },
+    "balances": [
+      {
+        "balance": "150.47",
+        "buying_liabilities": "0.00000",
+        "selling_liabilities": "0.00000",
+        "asset_type": "native"
+      }
+    ],
+    "signers": [
+      {
+        "public_key": "GAT36NRQTWB2TYWD3UM32HU7OS7DCYJIYGASXC4BXUGCADXJLO52WUEC",
+        "weight": 1,
+        "key": "GAT36NRQTWB2TYWD3UM32HU7OS7DCYJIYGASXC4BXUGCADXJLO52WUEC",
+        "type": "ed25519_public_key"
+      }
+    ],
+    "data": {}
+  }
+  
