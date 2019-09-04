@@ -1,4 +1,6 @@
 using System;
+using System.IO;
+using System.Net.Http;
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Threading.Tasks;
@@ -11,9 +13,10 @@ namespace kin_sdk_tests
     public class KinClientTest
     {
         static TestingKeystoreProvider keystoreProvider = new TestingKeystoreProvider();
+        static FakeHttpClient fakeClient = new FakeHttpClient();
 
-        [ClassInitialize]
-        public static void InitClass(TestContext testContext) => keystoreProvider.CleanStorage();
+        [TestInitialize]
+        public void InitTest() => keystoreProvider.CleanStorage();
 
         [ClassCleanup]
         public static void CleanClass() => keystoreProvider.CleanStorage();
@@ -82,6 +85,27 @@ namespace kin_sdk_tests
             KeyPair keyPair = await kinClient.AddAccount(extras);
 
             Assert.AreEqual(keyPair.AccountId, keystoreProvider.GetAccountByPlayerName("Ron").AccountId);
+        }
+
+        [TestMethod]
+        public void TestGetAccount()
+        {
+            KeyPair keyPair = KeyPair.Random();
+            KinClient kinClient = new KinClient(kin_sdk.Environment.Test, keystoreProvider);
+
+            KinAccount kinAccount = kinClient.GetAccount(keyPair);
+            Assert.AreEqual(kinAccount.keyPair, keyPair);
+        }
+
+        [TestMethod]
+        public async Task TestGetMinimumFee()
+        {
+            KinClient kinClient = new KinClient(kin_sdk.Environment.Test, keystoreProvider, httpClient: fakeClient.httpClient);
+            string jsonResponse = File.ReadAllText(Path.Combine("testdata", "minimumFee.json"));
+            fakeClient.SetResponse(jsonResponse);
+            
+            UInt32 minimumFee = await kinClient.GetMinimumFee();
+            Assert.AreEqual(minimumFee, (UInt32) 100);   
         }
     }
 }
