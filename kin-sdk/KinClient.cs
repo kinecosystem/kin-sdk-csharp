@@ -90,5 +90,10 @@ namespace kin_sdk
                 }
             }
         }
+
+        internal BlockchainEvents CreateBlockchainEventsInstance(KeyPair account) 
+        {
+            return new BlockchainEvents(this.server, account);
+        }
     }
 }

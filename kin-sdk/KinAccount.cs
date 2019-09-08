@@ -8,11 +8,13 @@ namespace kin_sdk
     {
         public readonly KeyPair keyPair; 
         private readonly KinClient client;
+        private BlockchainEvents blockchainEvents;
 
         internal KinAccount(KeyPair keyPair, KinClient client)
         {
             this.keyPair = keyPair;
             this.client = client;
+            this.blockchainEvents = this.client.CreateBlockchainEventsInstance(keyPair);
         }
 
         public string GetPublicAddress() => this.keyPair.AccountId;
@@ -26,5 +28,15 @@ namespace kin_sdk
         {
             return await this.client.accountInfoRetriver.GetBalance(this.GetPublicAddress());
         }
+
+        public async Task<string> SendKin(string destination, decimal amount, UInt32 fee, string memo=null)
+        {
+            return await this.client.transactionSender.SendKin(this.keyPair, destination, amount, fee, memo);
+        }
+
+        public async Task<ListenerRegistration> AddBalanceListener(Action<string> callback)
+        {
+
+        } 
     }
 }
