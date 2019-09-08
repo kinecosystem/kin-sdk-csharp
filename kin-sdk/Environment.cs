@@ -6,9 +6,9 @@ namespace kin_sdk
     public class Environment
     {
 
-        public readonly string networkUrl;
-        public readonly string networkPassphrase;
-        
+        public string NetworkUrl { get; }
+        public string NetworkPassphrase { get; }
+
         /// <summary>
         /// Build an Environment object.
         /// </summary>
@@ -28,23 +28,34 @@ namespace kin_sdk
                 throw new ArgumentException($"networkPassphrase cannot be null or empty");
             }
 
-            this.networkUrl = networkUrl;
-            this.networkPassphrase = networkPassphrase;
+            this.NetworkUrl = networkUrl;
+            this.NetworkPassphrase = networkPassphrase;
         }
 
-        public static readonly Environment Production = new Environment("https://horizon.kinfederation.com","Kin Mainnet ; December 2018");
+        public static Environment Production
+        {
+            get
+            {
+                return new Environment("https://horizon.kinfederation.com", "Kin Mainnet ; December 2018");
+            }
+        }
 
-        public static readonly Environment Test = new Environment("https://horizon-testnet.kininfrastructure.com",
-        "Kin Testnet ; December 2018");
+        public static Environment Test
+        {
+            get
+            {
+                return new Environment("https://horizon-testnet.kininfrastructure.com", "Kin Testnet ; December 2018");
+            }
+        }
 
         public bool IsMainNet()
         {
-            return Production.networkUrl == this.networkUrl.Replace("http://", "https://") && Production.networkPassphrase == this.networkPassphrase;
+            return Production.NetworkUrl == this.NetworkUrl.Replace("http://", "https://") && Production.NetworkPassphrase == this.NetworkPassphrase;
         }
 
         public Network GetNetwork()
         {
-            return new Network(this.networkPassphrase);
+            return new Network(this.NetworkPassphrase);
         }
     }
 }

@@ -15,16 +15,16 @@ namespace kin_sdk
             this.client = client;
         }
 
-        public string GetPublicAddress() => this.keyPair.AccountId;
+        public string GetPublicAddress => this.keyPair.AccountId;
 
-        public async Task<AccountStatus> GetStatus()
+        public Task<AccountStatus> GetStatus()
         {
-            return await this.client.accountInfoRetriver.GetStatus(this.GetPublicAddress());
+            return this.client.accountInfoRetriver.GetStatus(this.GetPublicAddress);
         } 
 
-        public async Task<decimal> GetBalance() 
+        public Task<decimal> GetBalance() 
         {
-            return await this.client.accountInfoRetriver.GetBalance(this.GetPublicAddress());
+            return this.client.accountInfoRetriver.GetBalance(this.GetPublicAddress);
         }
     }
 }

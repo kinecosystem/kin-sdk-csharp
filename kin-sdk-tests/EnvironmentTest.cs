@@ -10,11 +10,11 @@ namespace kin_sdk_tests
         [TestMethod]
         public void TestDefaults()
         {
-            Assert.AreEqual(kin_sdk.Environment.Production.networkUrl, "https://horizon.kinfederation.com");
-            Assert.AreEqual(kin_sdk.Environment.Production.networkPassphrase, "Kin Mainnet ; December 2018");
+            Assert.AreEqual(kin_sdk.Environment.Production.NetworkUrl, "https://horizon.kinfederation.com");
+            Assert.AreEqual(kin_sdk.Environment.Production.NetworkPassphrase, "Kin Mainnet ; December 2018");
 
-            Assert.AreEqual(kin_sdk.Environment.Test.networkUrl, "https://horizon-testnet.kininfrastructure.com");
-            Assert.AreEqual(kin_sdk.Environment.Test.networkPassphrase, "Kin Testnet ; December 2018");
+            Assert.AreEqual(kin_sdk.Environment.Test.NetworkUrl, "https://horizon-testnet.kininfrastructure.com");
+            Assert.AreEqual(kin_sdk.Environment.Test.NetworkPassphrase, "Kin Testnet ; December 2018");
         }
 
         [TestMethod]
@@ -50,8 +50,8 @@ namespace kin_sdk_tests
             Assert.IsTrue(kin_sdk.Environment.Production.IsMainNet());
             Assert.IsFalse(kin_sdk.Environment.Test.IsMainNet());
 
-            var wrongUrl = new kin_sdk.Environment("https://example.com", kin_sdk.Environment.Production.networkPassphrase);
-            var wrongPass = new kin_sdk.Environment(kin_sdk.Environment.Production.networkUrl, " ");
+            var wrongUrl = new kin_sdk.Environment("https://example.com", kin_sdk.Environment.Production.NetworkPassphrase);
+            var wrongPass = new kin_sdk.Environment(kin_sdk.Environment.Production.NetworkUrl, " ");
             
             Assert.IsFalse(wrongUrl.IsMainNet());
             Assert.IsFalse(wrongPass.IsMainNet());
@@ -61,7 +61,7 @@ namespace kin_sdk_tests
         public void TestGetNetwork()
         {
             kin_base.Network network  = kin_sdk.Environment.Test.GetNetwork();
-            Assert.AreEqual(network.NetworkPassphrase , kin_sdk.Environment.Test.networkPassphrase);
+            Assert.AreEqual(network.NetworkPassphrase , kin_sdk.Environment.Test.NetworkPassphrase);
         }
         
     }

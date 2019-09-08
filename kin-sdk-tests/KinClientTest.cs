@@ -28,13 +28,13 @@ namespace kin_sdk_tests
             KinClient client = new KinClient(kin_sdk.Environment.Test, keystoreProvider);
             KinClient client2 = new KinClient(kin_sdk.Environment.Test, keystoreProvider, "abcd");
 
-            Assert.AreEqual(client.appId, "anon");
-            Assert.AreEqual(client2.appId, "abcd");
+            Assert.AreEqual(client.AppId, "anon");
+            Assert.AreEqual(client2.AppId, "abcd");
 
-            Assert.AreEqual(kin_base.Network.Current.NetworkPassphrase, client.environment.networkPassphrase);
+            Assert.AreEqual(kin_base.Network.Current.NetworkPassphrase, client.Environment.NetworkPassphrase);
             
             new KinClient(kin_sdk.Environment.Production, keystoreProvider);
-            Assert.AreEqual(kin_base.Network.Current.NetworkPassphrase, kin_sdk.Environment.Production.networkPassphrase);
+            Assert.AreEqual(kin_base.Network.Current.NetworkPassphrase, kin_sdk.Environment.Production.NetworkPassphrase);
         }
 
         [TestMethod]
@@ -62,7 +62,7 @@ namespace kin_sdk_tests
         public void TestExplicitlyEmptyAppId()
         {
             KinClient client = new KinClient(kin_sdk.Environment.Test, keystoreProvider, "");
-            Assert.AreEqual(client.appId, "");
+            Assert.AreEqual(client.AppId, "");
         }
 
         [TestMethod]
