@@ -22,7 +22,7 @@ namespace kin_sdk_tests
             KeyPair keyPair = KeyPair.Random();
             KinAccount kinAccount = kinClient.GetAccount(keyPair);
 
-            Assert.AreEqual(kinAccount.GetPublicAddress(), keyPair.Address);
+            Assert.AreEqual(kinAccount.GetPublicAddress, keyPair.Address);
         }
 
         [TestMethod]

@@ -15,9 +15,9 @@ namespace kin_sdk
         internal readonly TransactionSender transactionSender;
         internal readonly AccountInfoRetriver accountInfoRetriver;
         internal readonly GeneralBlockchainInfoRetriever generalBlockchainInfoRetriever;
-        public readonly Environment environment;
-        public readonly string appId;
-        public readonly IKeyStoreProvider keyStore;
+        public Environment Environment { get; }
+        public string AppId { get; }
+        public IKeyStoreProvider KeyStore { get; }
 
         /// <summary>
         /// Build a KinClient object
@@ -26,16 +26,16 @@ namespace kin_sdk
         /// <param name="keyStore">An implementation of the IKeyStoreProvider interface</param>
         /// <param name="appId">A 3/4 charcter string (letters/digits) which represent the application id to add to each transaction</param>
         /// <param name="httpClient">Optional httpClient to use to communicate with the blockchain</param>
-        public KinClient(Environment environment, IKeyStoreProvider keyStore, string appId = DefualtAppId, HttpClient httpClient=null)
+        public KinClient(Environment environment, IKeyStoreProvider keyStore, string appId = DefualtAppId, HttpClient httpClient = null)
         {
-            this.environment = environment ?? throw new ArgumentNullException("Environemnt");
-            this.keyStore = keyStore ?? throw new ArgumentNullException("Keystore");
+            this.Environment = environment ?? throw new ArgumentNullException(nameof(environment));
+            this.KeyStore = keyStore ?? throw new ArgumentNullException(nameof(keyStore));
             ValidateAppId(appId);
-            this.appId = appId;
+            this.AppId = appId;
             this.server = InitServer(httpClient);
             this.accountInfoRetriver = new AccountInfoRetriver(this.server);
             this.generalBlockchainInfoRetriever = new GeneralBlockchainInfoRetriever(this.server);
-            this.transactionSender = new TransactionSender(this.server, this.appId);
+            this.transactionSender = new TransactionSender(this.server, this.AppId);
         }
 
         /// <summary>
@@ -46,7 +46,7 @@ namespace kin_sdk
         public async Task<KeyPair> AddAccount(Dictionary<string, object> extras = null)
         {
             KeyPair keyPair = KeyPair.Random();
-            await this.keyStore.AddAccount(keyPair, extras);
+            await this.KeyStore.AddAccount(keyPair, extras);
             return keyPair;
         }
 
@@ -64,20 +64,20 @@ namespace kin_sdk
         /// Get the minimum acceptable fee for a transaction on the blockchain
         /// </summary>
         /// <returns>The minimum fee</returns>
-        public async Task<UInt32> GetMinimumFee()
+        public Task<UInt32> GetMinimumFee()
         {
-            return await this.generalBlockchainInfoRetriever.GetMinimumFee();
+            return this.generalBlockchainInfoRetriever.GetMinimumFee();
         }
 
         private Server InitServer(HttpClient httpClient)
         {
-            Network.Use(this.environment.GetNetwork());
+            Network.Use(this.Environment.GetNetwork());
             if (httpClient == null)
             {
                 httpClient = Server.CreateHttpClient();
                 httpClient.Timeout = TransactionTimeout;
             }
-            return new Server(this.environment.networkUrl, httpClient);
+            return new Server(this.Environment.NetworkUrl, httpClient);
         }
 
         private void ValidateAppId(string appId)
