@@ -6,37 +6,39 @@ namespace kin_sdk
 {
     public class KinAccount
     {
-        public readonly KeyPair keyPair; 
+        public KeyPair KeyPair { get; }
         private readonly KinClient client;
-        private BlockchainEvents blockchainEvents;
+        internal BlockchainEvents blockchainEvents;
 
         internal KinAccount(KeyPair keyPair, KinClient client)
         {
-            this.keyPair = keyPair;
+            this.KeyPair = keyPair;
             this.client = client;
             this.blockchainEvents = this.client.CreateBlockchainEventsInstance(keyPair);
         }
 
-        public string GetPublicAddress => this.keyPair.AccountId;
+        public string GetPublicAddress => this.KeyPair.AccountId;
 
         public Task<AccountStatus> GetStatus()
         {
             return this.client.accountInfoRetriver.GetStatus(this.GetPublicAddress);
-        } 
+        }
 
-        public Task<decimal> GetBalance() 
+        public Task<decimal> GetBalance()
         {
             return this.client.accountInfoRetriver.GetBalance(this.GetPublicAddress);
         }
 
-        public async Task<string> SendKin(string destination, decimal amount, UInt32 fee, string memo=null)
+        public Task<string> SendKin(string destination, decimal amount, UInt32 fee, string memo = null)
         {
-            return await this.client.transactionSender.SendKin(this.keyPair, destination, amount, fee, memo);
+            return this.client.transactionSender.SendKin(this.KeyPair, destination, amount, fee, memo);
         }
 
-        public async Task<ListenerRegistration> AddBalanceListener(Action<string> callback)
+        public async Task<ListenerRegistration> AddBalanceListener(EventHandler<decimal> listener)
         {
-
-        } 
+            ListenerRegistration response = this.blockchainEvents.CreateBalanceListener(listener);
+            await response.Connect();
+            return response;
+        }
     }
 }

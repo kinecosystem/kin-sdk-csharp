@@ -29,7 +29,7 @@ namespace kin_sdk
         public KinClient(Environment environment, IKeyStoreProvider keyStore, string appId = DefualtAppId, HttpClient httpClient = null)
         {
             this.Environment = environment ?? throw new ArgumentNullException(nameof(environment));
-            this.KeyStore = keyStore ?? throw new ArgumentNullException(nameof(keyStore));
+            this.KeyStore = keyStore; //?? throw new ArgumentNullException(nameof(keyStore));
             ValidateAppId(appId);
             this.AppId = appId;
             this.server = InitServer(httpClient);

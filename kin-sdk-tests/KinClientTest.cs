@@ -94,7 +94,7 @@ namespace kin_sdk_tests
             KinClient kinClient = new KinClient(kin_sdk.Environment.Test, keystoreProvider);
 
             KinAccount kinAccount = kinClient.GetAccount(keyPair);
-            Assert.AreEqual(kinAccount.keyPair, keyPair);
+            Assert.AreEqual(kinAccount.KeyPair, keyPair);
         }
 
         [TestMethod]
