@@ -1,6 +1,7 @@
 /// <summary>
 /// Keystoreprovider used for unit tests
 /// </summary>
+#pragma warning disable 1998  // Disable no-await warning
 
 using System;
 using System.IO;
