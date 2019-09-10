@@ -1,12 +1,12 @@
 using System;
 using System.Threading.Tasks;
-using kin_base;
+using Kin.Base;
 
-namespace kin_sdk
+namespace Kin.Sdk
 {
     public class KinAccount
     {
-        public readonly KeyPair keyPair; 
+        internal KeyPair keyPair {get;} 
         private readonly KinClient client;
 
         internal KinAccount(KeyPair keyPair, KinClient client)
@@ -15,16 +15,16 @@ namespace kin_sdk
             this.client = client;
         }
 
-        public string GetPublicAddress => this.keyPair.AccountId;
+        public string PublicAddress => this.keyPair.AccountId;
 
         public Task<AccountStatus> GetStatus()
         {
-            return this.client.accountInfoRetriver.GetStatus(this.GetPublicAddress);
+            return this.client.accountInfoRetriver.GetStatus(this.PublicAddress);
         } 
 
         public Task<decimal> GetBalance() 
         {
-            return this.client.accountInfoRetriver.GetBalance(this.GetPublicAddress);
+            return this.client.accountInfoRetriver.GetBalance(this.PublicAddress);
         }
     }
 }

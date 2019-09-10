@@ -1,6 +1,6 @@
 using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using kin_sdk;
+using Kin.Sdk;
 
 namespace kin_sdk_tests
 {
@@ -10,58 +10,58 @@ namespace kin_sdk_tests
         [TestMethod]
         public void TestDefaults()
         {
-            Assert.AreEqual(kin_sdk.Environment.Production.NetworkUrl, "https://horizon.kinfederation.com");
-            Assert.AreEqual(kin_sdk.Environment.Production.NetworkPassphrase, "Kin Mainnet ; December 2018");
+            Assert.AreEqual(Kin.Sdk.Environment.Production.NetworkUrl, "https://horizon.kinfederation.com");
+            Assert.AreEqual(Kin.Sdk.Environment.Production.NetworkPassphrase, "Kin Mainnet ; December 2018");
 
-            Assert.AreEqual(kin_sdk.Environment.Test.NetworkUrl, "https://horizon-testnet.kininfrastructure.com");
-            Assert.AreEqual(kin_sdk.Environment.Test.NetworkPassphrase, "Kin Testnet ; December 2018");
+            Assert.AreEqual(Kin.Sdk.Environment.Test.NetworkUrl, "https://horizon-testnet.kininfrastructure.com");
+            Assert.AreEqual(Kin.Sdk.Environment.Test.NetworkPassphrase, "Kin Testnet ; December 2018");
         }
 
         [TestMethod]
         public void TestValidConstractor()
         {
-            new kin_sdk.Environment("http://example.com", "passhprase");
+            new Kin.Sdk.Environment("http://example.com", "passhprase");
         }
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException), "networkUrl is not a valid URL")]
         public void TestNullUrl()
         {
-            new kin_sdk.Environment(null, " ");
+            new Kin.Sdk.Environment(null, " ");
         }
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException), "networkUrl not_a_url is not a valid URL")]
         public void TestInvalidUrl()
         {
-            new kin_sdk.Environment("not_a_url", " ");
+            new Kin.Sdk.Environment("not_a_url", " ");
         }
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException), "networkPassphrase cannot be null or empty")]
         public void TestInvalidPassphrase()
         {
-            new kin_sdk.Environment("http://example.com", "");
+            new Kin.Sdk.Environment("http://example.com", "");
         }
 
         [TestMethod]
         public void TestIsMainNet()
         {
-            Assert.IsTrue(kin_sdk.Environment.Production.IsMainNet());
-            Assert.IsFalse(kin_sdk.Environment.Test.IsMainNet());
+            Assert.IsTrue(Kin.Sdk.Environment.Production.IsMainNet);
+            Assert.IsFalse(Kin.Sdk.Environment.Test.IsMainNet);
 
-            var wrongUrl = new kin_sdk.Environment("https://example.com", kin_sdk.Environment.Production.NetworkPassphrase);
-            var wrongPass = new kin_sdk.Environment(kin_sdk.Environment.Production.NetworkUrl, " ");
+            var wrongUrl = new Kin.Sdk.Environment("https://example.com", Kin.Sdk.Environment.Production.NetworkPassphrase);
+            var wrongPass = new Kin.Sdk.Environment(Kin.Sdk.Environment.Production.NetworkUrl, " ");
             
-            Assert.IsFalse(wrongUrl.IsMainNet());
-            Assert.IsFalse(wrongPass.IsMainNet());
+            Assert.IsFalse(wrongUrl.IsMainNet);
+            Assert.IsFalse(wrongPass.IsMainNet);
         }
 
         [TestMethod]
         public void TestGetNetwork()
         {
-            kin_base.Network network  = kin_sdk.Environment.Test.GetNetwork();
-            Assert.AreEqual(network.NetworkPassphrase , kin_sdk.Environment.Test.NetworkPassphrase);
+            Kin.Base.Network network  = Kin.Sdk.Environment.Test.Network;
+            Assert.AreEqual(network.NetworkPassphrase , Kin.Sdk.Environment.Test.NetworkPassphrase);
         }
         
     }

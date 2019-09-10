@@ -1,4 +1,4 @@
-namespace kin_sdk
+namespace Kin.Sdk
 {
     public enum AccountStatus
     {

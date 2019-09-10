@@ -1,7 +1,7 @@
 using System;
-using kin_base;
+using Kin.Base;
 
-namespace kin_sdk
+namespace Kin.Sdk
 {
     class TransactionSender
     {

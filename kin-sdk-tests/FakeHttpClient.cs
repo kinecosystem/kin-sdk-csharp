@@ -1,3 +1,4 @@
+using System;
 using System.Net;
 using System.Net.Http;
 using Moq;
@@ -24,6 +25,11 @@ namespace kin_sdk_tests
             };
 
             this.mockFakeHttpMesssageHandler.Setup(a => a.Send(It.IsAny<HttpRequestMessage>())).Returns(httpResponseMessage);
+        }
+
+        public void SetResponse(Exception e)
+        {
+            this.mockFakeHttpMesssageHandler.Setup(a => a.Send(It.IsAny<HttpRequestMessage>())).Throws(e);
         }
     }
 }

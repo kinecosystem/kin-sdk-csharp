@@ -1,11 +1,11 @@
 using System;
 using System.Threading.Tasks;
-using kin_base;
-using kin_base.responses;
-using kin_base.responses.page;
-using kin_base.requests;
+using Kin.Base;
+using Kin.Base.responses;
+using Kin.Base.responses.page;
+using Kin.Base.requests;
 
-namespace kin_sdk
+namespace Kin.Sdk
 {
     class GeneralBlockchainInfoRetriever
     {
@@ -17,7 +17,7 @@ namespace kin_sdk
 
         internal async Task<UInt32> GetMinimumFee()
         {
-            kin_base.requests.LedgersRequestBuilder requestBuilder = server.Ledgers;
+            Kin.Base.requests.LedgersRequestBuilder requestBuilder = server.Ledgers;
             requestBuilder.Order(OrderDirection.DESC).Limit(1);
             try
             {

@@ -3,15 +3,15 @@ using System.Text.RegularExpressions;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Net.Http;
-using kin_base;
+using Kin.Base;
 
-namespace kin_sdk
+namespace Kin.Sdk
 {
     public class KinClient
     {
         private const string DefualtAppId = "anon";
         private readonly TimeSpan TransactionTimeout = TimeSpan.FromSeconds(30);
-        private Server server;
+        private readonly Server server;
         internal readonly TransactionSender transactionSender;
         internal readonly AccountInfoRetriver accountInfoRetriver;
         internal readonly GeneralBlockchainInfoRetriever generalBlockchainInfoRetriever;
@@ -61,7 +61,7 @@ namespace kin_sdk
         }
 
         /// <summary>
-        /// Get the minimum acceptable fee for a transaction on the blockchain
+        /// Get the minimum acceptable fee (In Quarks - 1/100,000 Kin) for a transaction on the blockchain
         /// </summary>
         /// <returns>The minimum fee</returns>
         public Task<UInt32> GetMinimumFee()
@@ -71,7 +71,7 @@ namespace kin_sdk
 
         private Server InitServer(HttpClient httpClient)
         {
-            Network.Use(this.Environment.GetNetwork());
+            Network.Use(this.Environment.Network);
             if (httpClient == null)
             {
                 httpClient = Server.CreateHttpClient();
@@ -82,11 +82,11 @@ namespace kin_sdk
 
         private void ValidateAppId(string appId)
         {
-            if (appId != "")  // App id can also be an empty string.
+            if (!String.IsNullOrEmpty(appId))  // App id can also be an empty string or null.
             {
                 if (!Regex.IsMatch(appId, "[a-zA-Z0-9]{3,4}"))
                 {
-                    throw new ArgumentException($"appId {appId ?? ""} is invalid, an appId can only contain letters and digits, and be 3 or 4 characters long");
+                    throw new ArgumentException($"appId {appId} is invalid, an appId can only contain letters and digits, and be 3 or 4 characters long");
                 }
             }
         }
