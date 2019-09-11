@@ -47,10 +47,10 @@ namespace Kin.Sdk
 
         // }
 
-        // private kin_base.Transaction buildBaseTransaction(KeyPair source, AccountResponse accountResponse, string destination, decimal amount, UInt32 fee, string memo=null)
+        // private Kin.Base.Transaction buildBaseTransaction(KeyPair source, AccountResponse accountResponse, string destination, decimal amount, UInt32 fee, string memo=null)
         // {
-        //     kin_base.Transaction.Builder transactionBuilder = 
-        //     new kin_base.Transaction.Builder(new Account(source.AccountId, accountResponse.SequenceNumber));
+        //     Kin.Base.Transaction.Builder transactionBuilder = 
+        //     new Kin.Base.Transaction.Builder(new Account(source.AccountId, accountResponse.SequenceNumber));
 
         //     transactionBuilder.SetFee((int) fee); // Change kin-base to get uint32
         //     if (memo != null)
@@ -64,7 +64,7 @@ namespace Kin.Sdk
         {
             AccountResponse sourceAccountResponse = await this.server.Accounts.Account(source.AccountId);
             Account sourceAccount = new Account(source.AccountId, sourceAccountResponse.SequenceNumber);
-            kin_base.Transaction.Builder transactionBuilder = new kin_base.Transaction.Builder(sourceAccount);
+            Kin.Base.Transaction.Builder transactionBuilder = new Kin.Base.Transaction.Builder(sourceAccount);
 
             transactionBuilder.SetFee((int) fee); // Change kin-base to accept uint32
             if (!String.IsNullOrEmpty(memo) && this.appId != "")
@@ -74,9 +74,9 @@ namespace Kin.Sdk
             }
 
             transactionBuilder.AddOperation(new PaymentOperation.Builder(KeyPair.FromAccountId(destination), 
-                                            new kin_base.AssetTypeNative(), amount.ToString()).Build());
+                                            new Kin.Base.AssetTypeNative(), amount.ToString()).Build());
 
-            kin_base.Transaction finalTransaction = transactionBuilder.Build();
+            Kin.Base.Transaction finalTransaction = transactionBuilder.Build();
             finalTransaction.Sign(source);
 
             try
@@ -100,7 +100,7 @@ namespace Kin.Sdk
         
         private async Task ValidateDestination(string destination)
         {
-            if (!kin_base.StrKey.IsValidEd25519PublicKey(destination))
+            if (!Kin.Base.StrKey.IsValidEd25519PublicKey(destination))
             {
                 throw new ArgumentException($"Destination {destination} is an invalid public key");
             }

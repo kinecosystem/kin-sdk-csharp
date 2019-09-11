@@ -3,7 +3,7 @@ using System.Net;
 using System.Net.Http;
 using Moq;
 
-namespace kin_sdk_tests
+namespace Kin.Sdk_tests
 {
     public class FakeHttpClient
     {

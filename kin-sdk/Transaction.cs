@@ -1,7 +1,7 @@
 using System;
-using kin_base;
+using Kin.Base;
 
-namespace kin_sdk
+namespace Kin.Sdk
 {
     public class Transaction
     {
@@ -13,9 +13,9 @@ namespace kin_sdk
         public readonly string memo;
         public readonly string id;
         public readonly WhitelistableTransaction whitelistableTransaction;
-        internal readonly kin_base.Transaction baseTransaction;
+        internal readonly Kin.Base.Transaction baseTransaction;
 
-        internal Transaction(KeyPair source, KeyPair destination, decimal amount, UInt32 fee, string memo, string id, kin_base.Transaction baseTransaction, WhitelistableTransaction whitelistableTransaction)
+        internal Transaction(KeyPair source, KeyPair destination, decimal amount, UInt32 fee, string memo, string id, Kin.Base.Transaction baseTransaction, WhitelistableTransaction whitelistableTransaction)
         {
             this.source = source;
             this.destination = destination;

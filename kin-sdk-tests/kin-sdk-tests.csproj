@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
-    <RootNamespace>kin_sdk_tests</RootNamespace>
+    <RootNamespace>Kin.Sdk_tests</RootNamespace>
     <IsPackable>false</IsPackable>
   </PropertyGroup>
     <ItemGroup>

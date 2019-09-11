@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using Kin.Sdk;
 using Kin.Base;
 
-namespace kin_sdk_tests
+namespace Kin.Sdk_tests
 {
     [TestClass]
     public class GeneralBlockchainInfoRetriverTest

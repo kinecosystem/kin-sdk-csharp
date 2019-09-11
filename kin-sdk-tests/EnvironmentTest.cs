@@ -2,7 +2,7 @@ using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Kin.Sdk;
 
-namespace kin_sdk_tests
+namespace Kin.Sdk_tests
 {
     [TestClass]
     public class EnvironmentTest

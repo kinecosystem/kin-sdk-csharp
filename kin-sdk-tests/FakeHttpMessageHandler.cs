@@ -3,7 +3,7 @@ using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace kin_sdk_tests
+namespace Kin.Sdk_tests
 {
     public abstract class FakeHttpMessageHandler : HttpMessageHandler
     {

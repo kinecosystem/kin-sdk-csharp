@@ -3,7 +3,7 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp2.2</TargetFramework>
-    <RootNamespace>kin_sdk_sample</RootNamespace>
+    <RootNamespace>Kin.Sdk.Sample</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
       <ProjectReference Include="..\kin-sdk\kin-sdk.csproj" />

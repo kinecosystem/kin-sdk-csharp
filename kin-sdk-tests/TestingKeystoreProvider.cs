@@ -13,7 +13,7 @@ using Newtonsoft.Json;
 
 using Kin.Sdk;
 
-namespace kin_sdk_tests
+namespace Kin.Sdk_tests
 {
     class UserAccount
     {

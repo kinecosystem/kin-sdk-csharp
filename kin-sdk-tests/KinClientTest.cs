@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using Kin.Sdk;
 using Kin.Base;
 
-namespace kin_sdk_tests
+namespace Kin.Sdk_tests
 {
     [TestClass]
     public class KinClientTest
@@ -97,7 +97,7 @@ namespace kin_sdk_tests
             KinClient kinClient = new KinClient(Kin.Sdk.Environment.Test, keystoreProvider);
 
             KinAccount kinAccount = kinClient.GetAccount(keyPair);
-            Assert.AreEqual(kinAccount.KeyPair, keyPair);
+            Assert.AreEqual(kinAccount.keyPair, keyPair);
         }
         
         [TestMethod]

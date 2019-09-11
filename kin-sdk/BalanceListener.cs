@@ -1,28 +1,20 @@
 using System;
-using kin_base;
-using kin_base.requests;
-using kin_base.responses;
+using Kin.Base.requests;
+using Kin.Base.responses;
 
-namespace kin_sdk
+namespace Kin.Sdk
 {
-    public class BalanceListener : Listener<TransactionResponse>
+    public class BalanceListener : Listener<TransactionResponse, TransactionsRequestBuilder>
     {
 
         public event Action<decimal> OnBalance;
 
-        internal BalanceListener(KinAccount kinAccount) :base(kinAccount)
-        {
-            TransactionsRequestBuilder req = this.kinAccount.blockchainEvents.CreateBalanceListener();
-            this.serverSentEvents = req.Stream( (s, e) => 
-            {
-                //Parse response
-                OnBalance(50m);
-            });
-        }
+        internal BalanceListener(KinAccount kinAccount) 
+            :base(kinAccount, kinAccount.blockchainEvents.CreateBalanceListener()) {}
 
-        protected override void ParseResponse(TransactionResponse response)
+        protected override void HandleResponse(TransactionResponse response)
         {
-            TransactionResponse tx = (TransactionResponse) response;
+            OnBalance?.Invoke(50m);
         }
     }
 }
