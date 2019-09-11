@@ -2,11 +2,11 @@ using System;
 using System.Text;
 using System.Threading.Tasks;
 using System.Net.Http;
-using kin_base;
-using kin_base.responses;
-using kin_base.requests;
+using Kin.Base;
+using Kin.Base.responses;
+using Kin.Base.requests;
 
-namespace kin_sdk
+namespace Kin.Sdk
 {
     class TransactionSender
     {

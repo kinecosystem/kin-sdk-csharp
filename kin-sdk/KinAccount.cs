@@ -1,37 +1,37 @@
 using System;
 using System.Threading.Tasks;
-using kin_base;
+using Kin.Base;
 
-namespace kin_sdk
+namespace Kin.Sdk
 {
     public class KinAccount
     {
-        public KeyPair KeyPair { get; }
+        internal KeyPair keyPair {get;} 
         private readonly KinClient client;
         internal BlockchainEvents blockchainEvents;
 
         internal KinAccount(KeyPair keyPair, KinClient client)
         {
-            this.KeyPair = keyPair;
+            this.keyPair = keyPair;
             this.client = client;
             this.blockchainEvents = this.client.CreateBlockchainEventsInstance(keyPair);
         }
 
-        public string GetPublicAddress => this.KeyPair.AccountId;
+        public string PublicAddress => this.keyPair.AccountId;
 
         public Task<AccountStatus> GetStatus()
         {
-            return this.client.accountInfoRetriver.GetStatus(this.GetPublicAddress);
-        }
+            return this.client.accountInfoRetriver.GetStatus(this.PublicAddress);
+        } 
 
         public Task<decimal> GetBalance()
         {
-            return this.client.accountInfoRetriver.GetBalance(this.GetPublicAddress);
+            return this.client.accountInfoRetriver.GetBalance(this.PublicAddress);
         }
 
         public Task<string> SendKin(string destination, decimal amount, UInt32 fee, string memo = null)
         {
-            return this.client.transactionSender.SendKin(this.KeyPair, destination, amount, fee, memo);
+            return this.client.transactionSender.SendKin(this.keyPair, destination, amount, fee, memo);
         }
 
         public async Task<ListenerRegistration> AddBalanceListener(EventHandler<decimal> listener)

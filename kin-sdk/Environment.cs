@@ -1,7 +1,7 @@
 ﻿using System;
-using kin_base;
+using Kin.Base;
 
-namespace kin_sdk
+namespace Kin.Sdk
 {
     public class Environment
     {
@@ -48,14 +48,14 @@ namespace kin_sdk
             }
         }
 
-        public bool IsMainNet()
+        public bool IsMainNet
         {
-            return Production.NetworkUrl == this.NetworkUrl.Replace("http://", "https://") && Production.NetworkPassphrase == this.NetworkPassphrase;
+            get
+            {
+                return Production.NetworkUrl == this.NetworkUrl.Replace("http://", "https://") && Production.NetworkPassphrase == this.NetworkPassphrase;
+            }
         }
 
-        public Network GetNetwork()
-        {
-            return new Network(this.NetworkPassphrase);
-        }
+        internal Network Network => new Network(this.NetworkPassphrase);
     }
 }

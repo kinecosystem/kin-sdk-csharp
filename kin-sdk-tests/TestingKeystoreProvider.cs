@@ -1,16 +1,17 @@
 /// <summary>
 /// Keystoreprovider used for unit tests
 /// </summary>
+#pragma warning disable 1998  // Disable no-await warning
 
 using System;
 using System.IO;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 
-using kin_base;
+using Kin.Base;
 using Newtonsoft.Json;
 
-using kin_sdk;
+using Kin.Sdk;
 
 namespace kin_sdk_tests
 {

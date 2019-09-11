@@ -1,9 +1,10 @@
 using System;
+using System.Net.Http;
 using System.Threading.Tasks;
-using kin_base;
-using kin_base.responses;
+using Kin.Base;
+using Kin.Base.responses;
 
-namespace kin_sdk
+namespace Kin.Sdk
 {
     class AccountInfoRetriver
     {
@@ -18,6 +19,11 @@ namespace kin_sdk
             try
             {
                 AccountResponse accountResponse = await this.server.Accounts.Account(publicAddress);
+                if (accountResponse == null)
+                {
+                    throw new OperationFailedException("Failed to get account balance");
+                }
+
                 foreach (Balance balance in accountResponse.Balances)
                 {
                     if (balance.Asset.Equals(KinAsset))
@@ -25,8 +31,9 @@ namespace kin_sdk
                         return Decimal.Parse(balance.BalanceString);
                     }
                 }
+                throw new OperationFailedException("Failed to get account balance"); // Not supposed to ever get here.
             }
-            catch  (kin_base.requests.HttpResponseException e)
+            catch  (Kin.Base.requests.HttpResponseException e)
             {
                 if (e.StatusCode == 404)
                 {
@@ -37,8 +44,10 @@ namespace kin_sdk
                     throw new OperationFailedException("Failed to get account balance", e);
                 }
             }
-
-            throw new Exception("Never happens"); // The code wont reach here, since we know for a fact that a KinAsset balance exists. However the null-forgiving operator is only supported from c# 8+
+            catch (HttpRequestException e)
+            {
+                throw new OperationFailedException("Failed to get account balance", e);
+            }
         }
 
         internal async Task<AccountStatus> GetStatus(string publicAddress)
