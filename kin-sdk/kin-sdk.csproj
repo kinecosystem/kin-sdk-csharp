@@ -2,11 +2,17 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <RootNamespace>kin_sdk</RootNamespace>
+    <RootNamespace>Kin.Sdk</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="kin-base" Version="0.0.2" />
+    <PackageReference Include="kin-base" Version="0.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
+      <_Parameter1>kin-sdk-tests</_Parameter1>
+    </AssemblyAttribute>
   </ItemGroup>
 
 </Project>
